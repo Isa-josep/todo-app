@@ -5,14 +5,15 @@ import { renderTodos } from './use-cases';
  * 
  * @param {String} elementId 
  */
-const ElementId={
+const ElementIds={
     TodoList:'.todo-list',
+    NewTodoInput:'#new-todo-input',
 
 }
 export const App =(elementId)=>{
     const displayTodos=()=>{
         const todos=todoStore.getTodos( todoStore.getCurrentFilter());
-        renderTodos(ElementId.TodoList,todos);
+        renderTodos(ElementIds.TodoList,todos);
     }
 
     (()=>{
@@ -22,4 +23,14 @@ export const App =(elementId)=>{
         displayTodos();
 
     })();
+    //referencias 
+    const newDescriptionInput = document.querySelector(ElementIds.NewTodoInput);
+
+    newDescriptionInput.addEventListener('keyup', (event)=>{
+        if(event.keyCode!==13) return;
+        if(event.target.value.trim().length === 0) return;
+        todoStore.addTodo (event.target.value);
+        displayTodos();
+        event.target.value='';
+    });
 }
