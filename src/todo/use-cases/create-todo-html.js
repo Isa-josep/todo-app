@@ -5,9 +5,6 @@ import { Todo } from "../models/todo-model";
  * @param {Todo} todo 
  */
 export const createTodoHtml = (todo) => {
-    if(!(todo instanceof Todo)){ //TODO: revisar si da eror esta cosa 
-        throw new Error('Invalid todo');
-    }
     const {done,description,id} =todo;
     const html =`
         
